@@ -26,12 +26,6 @@ public class ApplicationListenerSample implements ApplicationListener{
 	@Override
 	public void render() {
 		// Used to render the game elements called 60 times per second
-		throw new UnsupportedOperationException("Unimplemented method 'render'");
-	}
-
-	@Override
-	public void pause() {
-		// used to save game state when it loses focus, which doesn't involv the actual game play being paused unless the develp wants it to puase
 		if(renderInterrupted) {
 			log.debug("render()");
 			renderInterrupted = false;
@@ -39,15 +33,23 @@ public class ApplicationListenerSample implements ApplicationListener{
 	}
 
 	@Override
+	public void pause() {
+		// used to save game state when it loses focus, which doesn't involv the actual game play being paused unless the develp wants it to puase
+		log.debug("pause()");
+		renderInterrupted = true;
+	}
+
+	@Override
 	public void resume() {
 		// used to handle the game coming back from being pused and restores game state
-
+		log.debug("resume()");
+		renderInterrupted = true;
 	}
 
 	@Override
 	public void dispose() {
 		// used t free resources and cleanup
-
+		log.debug("dispose()");
 	}
 
 }
