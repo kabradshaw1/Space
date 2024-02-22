@@ -1,9 +1,12 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class InputPollingSample implements ApplicationListener {
@@ -15,7 +18,12 @@ public class InputPollingSample implements ApplicationListener {
 
 	@Override
 	public void create() {
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
+		camera = new OrthographicCamera();
+		viewport = new FitViewport(1080, 720, camera);
+		batch = new SpriteBatch();
+		font = new BitmapFont(Gdx.files.internal("fonts/oswald-32.fnt"));
 	}
 
 	@Override
