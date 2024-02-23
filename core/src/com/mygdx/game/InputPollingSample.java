@@ -61,15 +61,26 @@ public class InputPollingSample implements ApplicationListener {
 		font.draw(batch,
 			leftPressed ? "Left button pressed" : "Left button not pressed",
 			20f,
-			720 - 20f);
+			720 - 50f);
 
 		font.draw(batch,
 			rightPressed ? "Right button pressed" : "Right button not pressed",
 			20f,
-			720 - 20f);
+			720 - 80f);
 		// keys
 		boolean wPressed = Gdx.input.isKeyPressed(Input.Keys.W);
 		boolean sPressed = Gdx.input.isKeyPressed(Input.Keys.S);
+
+		font.draw(batch,
+			wPressed ? "w button pressed" : "w button not pressed",
+			20f,
+			720 - 110f);
+
+		font.draw(batch,
+			sPressed ? "s button pressed" : "s button not pressed",
+			20f,
+			720 - 140f);
+
 	}
 	@Override
 	public void pause() {
