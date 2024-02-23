@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -40,9 +41,36 @@ public class InputPollingSample implements ApplicationListener {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 
+		draw();
+
 		batch.end();
 	}
 
+	private void draw() {
+		int mouseX = Gdx.input.getX();
+		int mouseY = Gdx.input.getY();
+
+		boolean leftPressed = Gdx.input.isButtonPressed(Input.Buttons.LEFT);
+		boolean rightPressed = Gdx.input.isButtonPressed(Input.Buttons.RIGHT);
+
+		font.draw(batch,
+			"Mouse/Touch : x = " + mouseX + "y = " + mouseY,
+			20f,
+			720 - 20f);
+
+		font.draw(batch,
+			leftPressed ? "Left button pressed" : "Left button not pressed",
+			20f,
+			720 - 20f);
+
+		font.draw(batch,
+			rightPressed ? "Right button pressed" : "Right button not pressed",
+			20f,
+			720 - 20f);
+		// keys
+		boolean wPressed = Gdx.input.isKeyPressed(Input.Keys.W);
+		boolean sPressed = Gdx.input.isKeyPressed(Input.Keys.S);
+	}
 	@Override
 	public void pause() {
 
