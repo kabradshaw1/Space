@@ -30,7 +30,7 @@ public class InputPollingSample implements ApplicationListener {
 
 	@Override
 	public void resize(int width, int height) {
-		viewport.update(width, height);
+		viewport.update(width, height, true);
 	}
 
 	@Override
@@ -82,6 +82,7 @@ public class InputPollingSample implements ApplicationListener {
 			720 - 140f);
 
 	}
+
 	@Override
 	public void pause() {
 
