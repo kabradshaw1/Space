@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -16,6 +17,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class InputListeningSample implements ApplicationListener, InputProcessor {
 
 	private static final Logger log = new Logger(InputListeningSample.class.getName(), Logger.DEBUG);
+
+	private static final int MAX_MESSAGE_COUNT = 15;
+
+	private Array<String> messages = new Array<String>();
 	private OrthographicCamera camera;
 	private Viewport viewport;
 	private SpriteBatch batch;
@@ -29,6 +34,8 @@ public class InputListeningSample implements ApplicationListener, InputProcessor
 		viewport = new FitViewport(1080, 720, camera);
 		batch = new SpriteBatch();
 		font = new BitmapFont(Gdx.files.internal("fonts/oswald-32.fnt"));
+
+		Gdx.input.setInputProcessor(this);
 	}
 
 	@Override
@@ -50,9 +57,21 @@ public class InputListeningSample implements ApplicationListener, InputProcessor
 	}
 
 	private void draw() {
-
+		for(int  i = 0; i < messages.size; i++) {
+			font.draw(batch, messages.get(i),
+			20.0f,
+			720 - 40.f * (i +1)
+			);
+		}
 	}
 
+	private void addMessage(String message) {
+		messages.add(message);
+
+		if(messages.size > MAX_MESSAGE_COUNT) {
+			messages.removeIndex(0);
+		}
+	}
 	@Override
 	public void pause() {
 
@@ -70,56 +89,74 @@ public class InputListeningSample implements ApplicationListener, InputProcessor
 
 	@Override
 	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'keyDown'");
+		String message = "keyDown keycode = " + keycode;
+		log.debug(message);
+		addMessage(message);
+		return true;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'keyUp'");
+		String message = "keyUp keycode = " + keycode;
+		log.debug(message);
+		addMessage(message);
+		return true;
 	}
 
 	@Override
 	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
+		String message = "keyTyped keycode = " + character;
+		log.debug(message);
+		addMessage(message);
+		return true;
 	}
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'touchDown'");
+		String message = "touchDown screenX = " + screenX + " screenY = " + screenY;
+		log.debug(message);
+		addMessage(message);
+		return true;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'touchUp'");
+		String message = "touchUp screenX = " + screenX + " screenY = " + screenY;
+		log.debug(message);
+		addMessage(message);
+		return true;
 	}
 
 	@Override
 	public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'touchCancelled'");
+		String message = "touchCancelled screenX = " + screenX + " screenY = " + screenY;
+		log.debug(message);
+		addMessage(message);
+		return true;
 	}
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'touchDragged'");
+		String message = "touchDragged screenX = " + screenX + " screenY = " + screenY;
+		log.debug(message);
+		addMessage(message);
+		return true;
 	}
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'mouseMoved'");
+		String message = "mouseMoved screenX = " + screenX + " screenY = " + screenY;
+		log.debug(message);
+		addMessage(message);
+		return true;
 	}
 
 	@Override
 	public boolean scrolled(float amountX, float amountY) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'scrolled'");
+		String message = "scrolled amountX = " + amountX + " amountY = " + amountY;
+		log.debug(message);
+		addMessage(message);
+		return true;
 	}
 
 }
