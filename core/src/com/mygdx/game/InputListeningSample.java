@@ -3,6 +3,8 @@ package com.mygdx.game;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -34,7 +36,59 @@ public class InputListeningSample implements ApplicationListener, InputProcessor
 		batch = new SpriteBatch();
 		font = new BitmapFont(Gdx.files.internal("fonts/oswald-32.fnt"));
 
-		Gdx.input.setInputProcessor(this);
+		InputMultiplexer multiplexer = new InputMultiplexer();
+
+		InputAdapter firstProcessor = new InputAdapter() {
+			@Override
+			public boolean keyDown(int keycode) {
+				log.debug("first - keyDown keycode = " + keycode);
+				return true;
+			}
+
+			@Override
+			public boolean keyUp(int keycode) {
+				log.debug("first - keyUp keycode = " + keycode);
+				return false;
+			}
+
+			@Override
+			public boolean keyTyped(char character) {
+				log.debug("first - keyTyped character = " + character);
+				return false;
+			}
+
+		};
+		InputAdapter secondProcessor = new InputAdapter() {
+			@Override
+			public boolean keyDown(int keycode) {
+				log.debug("second - keyDown keycode = " + keycode);
+				return true;
+			}
+
+			@Override
+			public boolean keyUp(int keycode) {
+				log.debug("second - keyUp keycode = " + keycode);
+				return false;
+			}
+
+			@Override
+			public boolean keyTyped(char character) {
+				log.debug("second - keyTyped character = " + character);
+				return false;
+		};
+	};
+		multiplexer.addProcessor(firstProcessor);
+		multiplexer.addProcessor(secondProcessor);
+
+		Gdx.input.setInputProcessor(multiplexer);
+
+		// Gdx.input.setInputProcessor(new InputAdapter() {
+		// 	@Override
+		// 	public boolean keyDown(int keycode) {
+		// 		log.debug("Keydown keycode = " + keycode);
+		// 		return true;
+		// 	}
+		// });
 	}
 
 	@Override
